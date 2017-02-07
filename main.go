@@ -14,8 +14,9 @@ func main() {
 
 }
 
-func findDefinitions(in []byte) (out [][]byte, err error) {
-	r, err := regexp.Compile("([a-zA-Z\\(\\)\\s']+-*)+-([a-zA-Z].)+")
+func findRootDefinitions(in []byte) (out [][]byte, err error) {
+	// r, err := regexp.Compile("([a-zA-Z\\(\\)\\s']+-*)+-([a-zA-Z].)+")
+	r, err := regexp.Compile(".+(\\n .+)*[^\\n]")
 	if err != nil {
 		return
 	}
