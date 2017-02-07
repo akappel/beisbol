@@ -1,4 +1,3 @@
-A
 above-adv. arriba
 ace-n.m. ase (refers to the best player{s}in
  the league or on a team
@@ -68,7 +67,6 @@ average-v. promediar
 award-n.m. premio; Cy Young
  Award-n.m. Premio Cy Young
 away team-n.m. equipo visitante; convidado
-B
 back-up player-n.m. reserva; comebanco
 bag-n.f. almohada; almohadilla; base; m.
  cojín; saco
@@ -140,7 +138,7 @@ bases loaded-adj. bases congestionadas;
  bases are loaded-phr. la casa está
  llena/repleta; las bases están
  congestionadas/llenas
-bat-n.m bate; palo; madero; tolete; f.
+bat-n.m. bate; palo; madero; tolete; f.
  majagua; barrel (of the bat)-n.f.
  parte gruesa del bate; broken bat-
  n.m. bate roto; corked bat-n.m. bate
@@ -282,7 +280,6 @@ bunt-v. tocar la pelota; to attempt a
 bunt attempt-n.m. intento de toque
 bunter-n.m. tocador de bolas
 butterfingers-n.m. dedos de mantequilla
-C
 call (umpire)-n.f. decisión
 call up (to the majors)-v. llamar a (las
  mayores); subir a (las mayores)
@@ -414,7 +411,6 @@ cut-off (a throw)-v. cortar el tiro; relevar
 cut-off man-n.m. hombre de relevo
 Cy Young Award-n.m. premio Cy Young
 cycle-n.m. ciclo
-D
 dangerous hitter-n.m. bateador peligroso;
  bambino; macetero
 day-n.m. día
@@ -498,7 +494,6 @@ drive in (runs)-v. empujar; impulsar;
 drubbing-n.f. paliza
 duel-n.m. duelo
 dugout-n.m. dogao
-E
 eagle eyes (hitter with a good batting
  eye)-n.m. ojos de águila
 early-adj. temprano
@@ -548,7 +543,6 @@ extra-base hit-n.m. batazo de extra bases;
  palo de extra bases
 extra-innings-n.f. entradas adicionales;
  entradas extras
-F
 face-n.f. cara
 face-v. enfrentar a
 fair-adj. fer; fear
@@ -668,7 +662,6 @@ full-n.m. lleno
 full count-n.m. cuenta completa/llena
 fungo hitter-n.m. fongueador
 fungo hitting-n.m. fongueo
-G
 gaffe-n.m. error; f. pifia
 game-n.m. juego; partido (de béisbol)
 gamer-n.m. caballo
@@ -711,7 +704,6 @@ groundskeeper-n.m. manicurista
 guest-n.m. convidado
 gun (strong arm)-n.f. escopeta; m. fusil
 gunned down-v. fusilado
-H
 Hall of Fame-n.m. Salon de la Fama;
  Templo de la Fama; f. Galería de la
  Fama
@@ -803,7 +795,6 @@ hot dog (cocky player)-n.m. pelotero
 hour-n.f. hora
 hurler-n.m. lanzador; monticular;
  monticulista; pícher; serpentinero
-I
 illegal pitch-n.m. lanzamiento ilegal
 Indians-n.m. Indios
 infield-n.m. cuadro; cuadro interior;
@@ -835,7 +826,6 @@ intentional walk-n.f. base intencional;
 interference-n.f. interferencia
 intermediate-adj. intermedio
 Iron Horse-n.m. caballo de hierro
-J
 jam-n.m. atolladero; f. situación difícil; to
 be in a jam-v. caérsele la casa
 encima; llenarse el cuarto de agua
@@ -845,7 +835,6 @@ joker-n.m. barbero
 journey-man-n.m. veterano
 jump-v. brincar; saltar
 Junior Circuit-n.m. joven circuito
-K
 key hit-n.m. jit de oro
 keystone combination-n.f. combinación
  siore-segundo
@@ -857,7 +846,6 @@ knockdown pitch-n.m. lanzamiento
 pegado; f. recta pegada
 knuckleball-n.f. bola de nudillos
 knucklecurve-n.f. curva de nudillos
-L
 last place-n.m. sótano; to be in last place-v.
  estar en el sótano
 late-adj. tarde
@@ -919,7 +907,6 @@ loss-n.f. derrota; pérdida; revés
 low-adj. bajo; low and outside-adj. bajo y
  afuera
 lower deck-n.m. nivel bajo; f. planta baja
-M
 magic number-n.m. número mágico
 major leagues-n.f. grandes ligas; ligas
  mayores
@@ -973,7 +960,6 @@ multi-year contract-n.m. contrato
  multi-año; contrato de multiples años
 muscle-n.m. músculo
 mustard-n.f. mostaza
-N
 National Anthem-n.m. himno nacional
 National League-n.f. Liga Nacional
 national pastime-n.m. pasatiempo nacional
@@ -990,7 +976,6 @@ ninth-adj.n.m. noveno
 no-hitter-n.m. juego sin hits
 number-n.m. número; retired numbern.m.
 número retirado
-O
 occupied base-n.f. base ocupada
 October Classic-n.m. Clásico de
  Octubre
@@ -1056,7 +1041,6 @@ overthrow-v. tirar desviado; to overthrow
  the base-v. tirar desviado sobre la
  base
 owner-n.m. dueño; propietario
-P
 paint the corners-v. pintar las esquinas
 pair-n.m. par
 Panamanian-n.m. panameño
@@ -1194,7 +1178,6 @@ put-v. poner; to put ahead-v. poner
 put on base-v. embasar
 put together-v. hilvanar
 putouts (PO)-n.m. outs realizados
-R
 radio announcer-n.m. locutor de radio
 rain delay-n.f. postergación por lluvia
 rain out-n.m. juego postergado por lluvia;
@@ -1311,7 +1294,6 @@ runner-n.m. corredor; slow runner-n.m.
  runner on the base-v. jugar pegado
  a la base; to protect the runner-v.
  proteger el corredor
-S
 sacrifice-n.m. sacrificio
 sacrifice-v. sacrificar
 sacrifice bunt-n.m. toque de sacrificio
@@ -1548,7 +1530,6 @@ switch hit-v. batear a las dos manos
 switch hitter-n.m. bateador de las dos
  manos; bateador ambidiestro
 switch hitting-adj. ambidextro
-T
 tag-v. aguantar; tocar
 tag-up play(runner advancing)-n.m.
  pisicorre
@@ -1661,7 +1642,6 @@ two-base hit-n.m. biangular; doble;
  esquinas; tubey
 two-hundred-adj.n.m. doscientos
 tying run-n.f. carrera empate
-U
 umpire-n.m. árbitro; juez de campo; biased
  umpire-n.f. estatua de la libertad
 (statue of liberty-an umpire who
@@ -1687,7 +1667,6 @@ player´s union-n.m. sindicato/
 upper deck-n.m. nivel alto; f. planta alta
 utility player-n.m. jugador ocasional;
  jugador suplente; comodín
-V
 vacuum (player who fields everything)-
 n.f. escoba
 velocity-n.f. velocidad
@@ -1699,7 +1678,6 @@ victory-n.m. triunfo; f. victoria
 Virgin Islands-n.f. Islas Vírgenes
 visiting team-n.m. convidado; equipo
  visitante
-W
 wait-v. esperar; to wait for a pitch-v.
  esperar un lanzamiento
 waivers-n.m. waivers; taken on
@@ -1773,13 +1751,11 @@ World Series Trophy-n.m. Trofeo del
 Comisionado
 wrist-n.f. muñeca
 wrist band-n.f. muñequera
-Y
 Yankees-n.m. Yanquis
 year-n.m. año
 you’re out-phr. guirao
 young-adj. joven
 youth-n.m. joven
-Z
 zero-adj.n.m. cero
 zone-n.f. zona; strike zone-n.f. zona de
- estraícs 
+ estraícs
