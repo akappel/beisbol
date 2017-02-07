@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"regexp"
+	"strings"
 )
 
 func check(e error) {
@@ -15,15 +16,15 @@ func check(e error) {
 func main() {
 	dat, err := ioutil.ReadFile("dict.txt")
 	check(err)
-	out, err := findRootDefinitions(dat)
+	out, err := findParentDefinitions(dat)
 	check(err)
 
 	for _, el := range out {
-		fmt.Println(string(el))
+		fmt.Println(strings.Replace(string(el), "\n", "", -1))
 	}
 }
 
-func findRootDefinitions(in []byte) (out [][]byte, err error) {
+func findParentDefinitions(in []byte) (out [][]byte, err error) {
 	// r, err := regexp.Compile("([a-zA-Z\\(\\)\\s']+-*)+-([a-zA-Z].)+")
 	r, err := regexp.Compile(".+((\\n .+)*|(\\n\\(.+)*)*[^\\n]")
 	if err != nil {

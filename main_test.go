@@ -2,29 +2,25 @@ package main
 
 import "testing"
 
-var findRootDefinitionsTests = []struct {
+var findParentDefinitionsTests = []struct {
 	in  []byte
 	out [][]byte
 }{
-	{[]byte("barehand-n.f.adj. mano limpia"), [][]byte{[]byte("barehand-n.f.adj. mano limpia")}},
-	{[]byte("batted ball-n.f. bola bateada; m. batazo;\n machucón\nbatter-n.m."), [][]byte{[]byte("batted ball-n.f. bola bateada; m. batazo;\n machucón")}},
-	{[]byte("baseball (object)-n.f. pelota; bola; pildora\n(pill) m. esféride (sphere); m. cuero\n de caballo (horsehide)"), [][]byte{[]byte("baseball (object)-n.f. pelota; bola; pildora\n(pill) m. esféride (sphere); m. cuero\n de caballo (horsehide)")}},
-	// {[]byte("All-Star Break-n.m."), [][]byte{[]byte("All-Star Break-n.m.")}},
-	// {[]byte("All-Star-n.m."), [][]byte{[]byte("All-Star-n.m.")}},
-	// {[]byte("World Series Champions-n.m."), [][]byte{[]byte("World Series Champions-n.m.")}},
-	// {[]byte("Commissioner's Trophy-n.m."), [][]byte{[]byte("Commissioner's Trophy-n.m.")}},
+	{[]byte("ba-n.f.adj. m li"), [][]byte{[]byte("ba-n.f.adj. m li")}},
+	{[]byte("b b-n.f. b; b;\n mó\nb-n.m."), [][]byte{[]byte("b b-n.f. b; b;\n mó")}},
+	{[]byte("b (o)-n.f. p; b; p\n(p) m. e (s); m. c\n d c (h)"), [][]byte{[]byte("b (o)-n.f. p; b; p\n(p) m. e (s); m. c\n d c (h)")}},
 }
 
-func TestFindRootDefinitions(t *testing.T) {
-	for _, tt := range findRootDefinitionsTests {
-		out, err := findRootDefinitions(tt.in)
+func TestFindParentDefinitions(t *testing.T) {
+	for _, tt := range findParentDefinitionsTests {
+		out, err := findParentDefinitions(tt.in)
 		if err != nil {
 			t.Fatal(err)
 		}
 
 		// if the regex just completely failed to find anything, fail out
 		if len(out) < 1 {
-			t.Errorf("findRootDefinitions(%q) did not find anything!", tt.in)
+			t.Errorf("findParentDefinitions(%q) did not find anything!", tt.in)
 			return
 		}
 
@@ -32,8 +28,12 @@ func TestFindRootDefinitions(t *testing.T) {
 		got := string(out[0])
 		expected := string(tt.out[0])
 		if got != expected {
-			t.Errorf("findRootDefinitions(%q) => %q, want %q", string(tt.in), got, expected)
+			t.Errorf("findParentDefinitions(%q) => %q, want %q", string(tt.in), got, expected)
 		}
 
 	}
+}
+
+func TestFindChildDefinitions(t *testing.T) {
+	t.Skip("Implement me")
 }
