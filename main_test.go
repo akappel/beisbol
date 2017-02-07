@@ -8,6 +8,7 @@ var findRootDefinitionsTests = []struct {
 }{
 	{[]byte("barehand-n.f.adj. mano limpia"), [][]byte{[]byte("barehand-n.f.adj. mano limpia")}},
 	{[]byte("batted ball-n.f. bola bateada; m. batazo;\n machucón\nbatter-n.m."), [][]byte{[]byte("batted ball-n.f. bola bateada; m. batazo;\n machucón")}},
+	{[]byte("baseball (object)-n.f. pelota; bola; pildora\n(pill) m. esféride (sphere); m. cuero\n de caballo (horsehide)"), [][]byte{[]byte("baseball (object)-n.f. pelota; bola; pildora\n(pill) m. esféride (sphere); m. cuero\n de caballo (horsehide)")}},
 	// {[]byte("All-Star Break-n.m."), [][]byte{[]byte("All-Star Break-n.m.")}},
 	// {[]byte("All-Star-n.m."), [][]byte{[]byte("All-Star-n.m.")}},
 	// {[]byte("World Series Champions-n.m."), [][]byte{[]byte("World Series Champions-n.m.")}},
