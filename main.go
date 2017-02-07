@@ -1,6 +1,10 @@
 package main
 
-import "regexp"
+import (
+	"fmt"
+	"io/ioutil"
+	"regexp"
+)
 
 func check(e error) {
 	if e != nil {
@@ -9,9 +13,14 @@ func check(e error) {
 }
 
 func main() {
-	// dat, err := ioutil.ReadFile("dict.txt")
-	// check(err)
+	dat, err := ioutil.ReadFile("dict.txt")
+	check(err)
+	out, err := findRootDefinitions(dat)
+	check(err)
 
+	for _, el := range out {
+		fmt.Println(string(el))
+	}
 }
 
 func findRootDefinitions(in []byte) (out [][]byte, err error) {
