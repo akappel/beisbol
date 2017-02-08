@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-var findParentDefinitionsTests = []struct {
+var findDefinitionGroupsTests = []struct {
 	in  []byte
 	out [][]byte
 }{
@@ -12,15 +12,15 @@ var findParentDefinitionsTests = []struct {
 }
 
 func TestFindParentDefinitions(t *testing.T) {
-	for _, tt := range findParentDefinitionsTests {
-		out, err := findParentDefinitions(tt.in)
+	for _, tt := range findDefinitionGroupsTests {
+		out, err := findDefinitionGroups(tt.in)
 		if err != nil {
 			t.Fatal(err)
 		}
 
 		// if the regex just completely failed to find anything, fail out
 		if len(out) < 1 {
-			t.Errorf("findParentDefinitions(%q) did not find anything!", tt.in)
+			t.Errorf("findDefinitionGroups(%q) did not find anything!", tt.in)
 			return
 		}
 
@@ -28,12 +28,49 @@ func TestFindParentDefinitions(t *testing.T) {
 		got := string(out[0])
 		expected := string(tt.out[0])
 		if got != expected {
-			t.Errorf("findParentDefinitions(%q) => %q, want %q", string(tt.in), got, expected)
+			t.Errorf("findDefinitionGroups(%q) => %q, want %q", string(tt.in), got, expected)
 		}
 
 	}
 }
 
+var findDefinitionsTests = []struct {
+	in  []byte
+	out [][]byte
+}{
+	{[]byte("ba-n.f.adj. m li"), [][]byte{[]byte("ba-n.f.adj. m li")}},
+	{[]byte("ba-n.f.adj. m li; f"), [][]byte{[]byte("ba-n.f.adj. m li; f")}},
+	{[]byte("ba-n.f.adj. m li; f; f b-n.m. am d s"), [][]byte{[]byte("ba-n.f.adj. m li; f"), []byte("f b-n.m am d s")}},
+}
+
 func TestFindChildDefinitions(t *testing.T) {
-	t.Skip("Implement me")
+	for _, tt := range findDefinitionsTests {
+		out, err := findDefinitions(tt.in)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if len(out) < 1 {
+			t.Errorf("findDefinitions(%q) did not find anything!", tt.in)
+			return
+		}
+
+		for _, ttchild := range tt.out {
+			expected := string(ttchild)
+			found := false
+
+			for _, child := range out {
+				got := string(child)
+				t.Logf("got: %q", got)
+
+				if got == expected {
+					found = true
+				}
+			}
+
+			if !found {
+				t.Errorf("findDefinitions(%q) => %q not found in output set!", string(tt.in), expected)
+			}
+		}
+	}
 }
