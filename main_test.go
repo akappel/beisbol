@@ -41,30 +41,30 @@ var findTranslationsTests = []struct {
 	in  []byte
 	out []translation
 }{
-	{[]byte("b-a-n.f.adj. m li"), []translation{translation{"b-a", []string{"m li"}}}},
+	{[]byte("b-a-n.f.adj. m li"), []translation{translation{"b-a.n.f.adj.", []string{"m li"}}}},
 	// {[]byte("ba-n.f.adj. m li; f"), [][]byte{[]byte("ba-n.f.adj. m li; f")}},
 	// {[]byte("ba-n.f.adj. m li; f; f b-n.m. am d s"), [][]byte{[]byte("ba-n.f.adj. m li; f"), []byte("f b-n.m am d s")}},
 }
 
 func TestFindTranslations(t *testing.T) {
 	for _, tt := range findTranslationsTests {
-		defs, err := findTranslations(tt.in)
+		translations, err := findTranslations(tt.in)
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		if len(defs) < 1 {
+		if len(translations) < 1 {
 			t.Errorf("findTranslations(%q) did not find anything!", tt.in)
 			return
 		}
 
-		for _, expectedDef := range tt.out {
-			// for each expected definition, we check that output from the function has a definition struct
+		for _, expectedTrans := range tt.out {
+			// for each expected translation, we check that output from the function has a translation struct
 			// that matches.
 			found := false
 
-			for _, def := range defs {
-				if def.term == expectedDef.term && reflect.DeepEqual(def.translations, expectedDef.translations) {
+			for _, trans := range translations {
+				if trans.term == expectedTrans.term && reflect.DeepEqual(trans.translations, expectedTrans.translations) {
 					found = true
 				}
 			}
