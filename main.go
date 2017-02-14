@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"regexp"
 	"strings"
 )
@@ -14,14 +15,22 @@ type translation struct {
 }
 
 func main() {
-	// dat, err := ioutil.ReadFile("dict.txt")
-	// check(err)
-	// out, err := findTranslationGroups(dat)
-	// check(err)
+	dat, err := ioutil.ReadFile("dict.txt")
+	check(err)
+	groups, err := findTranslationGroups(dat)
+	check(err)
 
-	// for _, el := range out {
-	// 	fmt.Println(strings.Replace(string(el), "\n", "", -1))
-	// }
+	for _, group := range groups {
+		translations, err := findTranslations(group)
+		check(err)
+		for _, t := range translations {
+			fmt.Printf("term: %s\ntranslations:\n", t.term)
+			for _, trans := range t.translations {
+				fmt.Printf("\t%s\n", trans)
+			}
+		}
+	}
+
 }
 
 func findTranslationGroups(in []byte) (out [][]byte, err error) {
@@ -62,11 +71,8 @@ func findTranslations(in []byte) (out []translation, err error) {
 			trans = bytes.Replace(trans, term, []byte(""), -1)
 		}
 
-		fmt.Println(string(trans))
 		// add to last generated translation
 		out[len(out)-1].translations = append(out[len(out)-1].translations, strings.Trim(string(trans), " "))
-
-		fmt.Println(out[len(out)-1])
 	}
 	return
 }

@@ -41,8 +41,8 @@ var findTranslationsTests = []struct {
 	in  []byte
 	out []translation
 }{
-	{[]byte("b-a-n.f.adj. m li"), []translation{translation{"b-a.n.f.adj.", []string{"m li"}}}},
-	// {[]byte("ba-n.f.adj. m li; f"), [][]byte{[]byte("ba-n.f.adj. m li; f")}},
+	{[]byte("b-a-n.f.adj. m li"), []translation{translation{"b-a-n.f.adj.", []string{"m li"}}}},
+	{[]byte("ba-n.f.adj. m li; f"), []translation{translation{"ba-n.f.adj.", []string{"m li", "f"}}}},
 	// {[]byte("ba-n.f.adj. m li; f; f b-n.m. am d s"), [][]byte{[]byte("ba-n.f.adj. m li; f"), []byte("f b-n.m am d s")}},
 }
 
@@ -58,52 +58,18 @@ func TestFindTranslations(t *testing.T) {
 			return
 		}
 
-		for _, expectedTrans := range tt.out {
-			// for each expected translation, we check that output from the function has a translation struct
-			// that matches.
+		for _, expectedTranslation := range tt.out {
 			found := false
 
-			for _, trans := range translations {
-				if trans.term == expectedTrans.term && reflect.DeepEqual(trans.translations, expectedTrans.translations) {
+			for _, actualTranslation := range translations {
+				if actualTranslation.term == expectedTranslation.term && reflect.DeepEqual(actualTranslation.translations, expectedTranslation.translations) {
 					found = true
 				}
 			}
 
 			if !found {
-				t.Errorf("findTranslations(%q) => expected definition(s) not found in output set!", string(tt.in))
+				t.Errorf("findTranslations(%q) => want %q", string(tt.in), tt.out)
 			}
 		}
 	}
 }
-
-// func TestFindDefinitions(t *testing.T) {
-// 	for _, tt := range findTranslationsTests {
-// 		out, err := findTranslations(tt.in)
-// 		if err != nil {
-// 			t.Fatal(err)
-// 		}
-//
-// 		if len(out) < 1 {
-// 			t.Errorf("findTranslations(%q) did not find anything!", tt.in)
-// 			return
-// 		}
-//
-// 		for _, ttchild := range tt.out {
-// 			expected := string(ttchild)
-// 			found := false
-//
-// 			for _, child := range out {
-// 				got := string(child)
-// 				t.Logf("got: %q", got)
-//
-// 				if got == expected {
-// 					found = true
-// 				}
-// 			}
-//
-// 			if !found {
-// 				t.Errorf("findTranslations(%q) => %q not found in output set!", string(tt.in), expected)
-// 			}
-// 		}
-// 	}
-// }
