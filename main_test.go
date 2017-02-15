@@ -14,29 +14,6 @@ var findRootEntriesTests = []struct {
 	{[]byte("b (o)-n.f. p; b; p\n(p) m. e (s); m. c\n d c (h)"), [][]byte{[]byte("b (o)-n.f. p; b; p\n(p) m. e (s); m. c\n d c (h)")}},
 }
 
-func TestFindRootEntries(t *testing.T) {
-	for _, tt := range findRootEntriesTests {
-		out, err := findRootEntries(tt.in)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		// if the regex just completely failed to find anything, fail out
-		if len(out) < 1 {
-			t.Errorf("findRootEntries(%q) did not find anything!", tt.in)
-			return
-		}
-
-		// else, check that what it did find matches what we expect
-		got := string(out[0])
-		expected := string(tt.out[0])
-		if got != expected {
-			t.Errorf("findRootEntries(%q) => %q, want %q", string(tt.in), got, expected)
-		}
-
-	}
-}
-
 var findEntriesTests = []struct {
 	in  []byte
 	out []entry
@@ -46,7 +23,50 @@ var findEntriesTests = []struct {
 	// {[]byte("ba-n.f.adj. m li; f; f b-n.m. am d s"), [][]byte{[]byte("ba-n.f.adj. m li; f"), []byte("f b-n.m am d s")}},
 }
 
-func TestFindTranslations(t *testing.T) {
+var removeNewlinesTests = []struct {
+	in  []byte
+	out []byte
+}{
+	{[]byte("Hello\nWorld"), []byte("HelloWorld")},
+	{[]byte("Hello\n World"), []byte("Hello World")},
+	{[]byte("Hello\n\tWorld"), []byte("Hello	World")},
+}
+
+var findTermTests = []struct {
+	in  []byte
+	out []byte
+}{
+	{[]byte("hello-n.f. this is a translation"), []byte("hello-n.f.")},
+}
+
+func TestFindRootEntries(t *testing.T) {
+	name := "findRootEntries"
+
+	for _, tt := range findRootEntriesTests {
+		out, err := findRootEntries(tt.in)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		// if the regex just completely failed to find anything, fail out
+		if len(out) < 1 {
+			t.Errorf("%s(%q) did not find anything!", name, tt.in)
+			return
+		}
+
+		// else, check that what it did find matches what we expect
+		got := string(out[0])
+		expected := string(tt.out[0])
+		if got != expected {
+			t.Errorf("%s(%q) => %q, want %q", name, string(tt.in), got, expected)
+		}
+
+	}
+}
+
+func TestFindEntries(t *testing.T) {
+	name := "findEntries"
+
 	for _, tt := range findEntriesTests {
 		entries, err := findEntries(tt.in)
 		if err != nil {
@@ -54,7 +74,7 @@ func TestFindTranslations(t *testing.T) {
 		}
 
 		if len(entries) < 1 {
-			t.Errorf("findEntries(%q) did not find anything!", tt.in)
+			t.Errorf("%s(%q) did not find anything!", name, tt.in)
 			return
 		}
 
@@ -68,48 +88,36 @@ func TestFindTranslations(t *testing.T) {
 			}
 
 			if !found {
-				t.Errorf("findEntries(%q) => want %q", string(tt.in), tt.out)
+				t.Errorf("%s(%q) => want %q", name, string(tt.in), tt.out)
 			}
 		}
 	}
 }
 
-var removeNewlinesTests = []struct {
-	in  []byte
-	out []byte
-}{
-	{[]byte("Hello\nWorld"), []byte("HelloWorld")},
-	{[]byte("Hello\n World"), []byte("Hello World")},
-	{[]byte("Hello\n\tWorld"), []byte("Hello	World")},
-}
-
 func TestRemoveNewlines(t *testing.T) {
+	name := "removeNewlines"
+
 	for _, tt := range removeNewlinesTests {
 		rn := removeNewlines(tt.in)
 		if string(rn) != string(tt.out) {
-			t.Errorf("removeNewlines(%q) => %q, want %q", tt.in, rn, tt.out)
+			t.Errorf("%s(%q) => %q, want %q", name, tt.in, rn, tt.out)
 		}
 	}
 }
 
-var findTermTests = []struct {
-	in  []byte
-	out []byte
-}{
-	{[]byte("hello-n.f. this is a translation"), []byte("hello-n.f.")},
-}
-
 func TestFindTerm(t *testing.T) {
+	name := "findTerm"
+
 	for _, tt := range findTermTests {
 		term, _ := findTerm(tt.in)
 
 		if t == nil {
-			t.Errorf("findTerm(%q) did not find anything!", tt.in)
+			t.Errorf("%s(%q) did not find anything!", name, tt.in)
 			return
 		}
 
 		if string(term) != string(tt.out) {
-			t.Errorf("removeNewlines(%q) => %q, want %q", tt.in, term, tt.out)
+			t.Errorf("%s(%q) => %q, want %q", name, tt.in, term, tt.out)
 		}
 	}
 }
