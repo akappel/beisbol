@@ -3,37 +3,34 @@ package main
 import (
 	"bytes"
 	"errors"
-	"fmt"
-	"io/ioutil"
 	"regexp"
 	"strings"
 )
 
-type translation struct {
+type entry struct {
 	term         string
 	translations []string
 }
 
 func main() {
-	dat, err := ioutil.ReadFile("dict.txt")
-	check(err)
-	groups, err := findTranslationGroups(dat)
-	check(err)
-
-	for _, group := range groups {
-		translations, err := findTranslations(group)
-		check(err)
-		for _, t := range translations {
-			fmt.Printf("%s\n", t.term)
-			for _, trans := range t.translations {
-				fmt.Printf("\t%s\n", trans)
-			}
-		}
-	}
-
+	// dat, err := ioutil.ReadFile("dict.txt")
+	// check(err)
+	// groups, err := findTranslationGroups(dat)
+	// check(err)
+	//
+	// for _, group := range groups {
+	// 	translations, err := findTranslations(group)
+	// 	check(err)
+	// 	for _, t := range translations {
+	// 		fmt.Printf("%s\n", t.term)
+	// 		for _, trans := range t.translations {
+	// 			fmt.Printf("\t%s\n", trans)
+	// 		}
+	// 	}
+	// }
 }
 
-func findTranslationGroups(in []byte) (out [][]byte, err error) {
+func findRootEntries(in []byte) (out [][]byte, err error) {
 	r, err := regexp.Compile(".+((\\n .+)*|(\\n\\(.+)*)*[^\\n]")
 	if err != nil {
 		return
@@ -43,7 +40,7 @@ func findTranslationGroups(in []byte) (out [][]byte, err error) {
 	return
 }
 
-func findTranslations(in []byte) (out []translation, err error) {
+func findEntries(in []byte) (out []entry, err error) {
 	if len(in) < 1 {
 		err = errors.New("Length of input must be greater than 1")
 		return
@@ -59,7 +56,7 @@ func findTranslations(in []byte) (out []translation, err error) {
 
 		if term, _ := findTerm(split); term != nil {
 			// we've found the term in our split, create a new translation struct and add as string
-			out = append(out, translation{string(term), []string{}})
+			out = append(out, entry{string(term), []string{}})
 
 			// Remove those term's bytes
 			trans = bytes.Replace(trans, term, []byte(""), -1)
