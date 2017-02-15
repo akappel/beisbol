@@ -24,7 +24,7 @@ func main() {
 		translations, err := findTranslations(group)
 		check(err)
 		for _, t := range translations {
-			fmt.Printf("term: %s\ntranslations:\n", t.term)
+			fmt.Printf("%s\n", t.term)
 			for _, trans := range t.translations {
 				fmt.Printf("\t%s\n", trans)
 			}
@@ -49,13 +49,7 @@ func findTranslations(in []byte) (out []translation, err error) {
 		return
 	}
 
-	termRegex, err := regexp.Compile(".+\\.")
-	if err != nil {
-		return
-	}
-
-	// remove all newlines
-	in = bytes.Replace(in, []byte("\n"), []byte(""), -1)
+	in = removeNewlines(in)
 
 	// split on semi-colons
 	splits := bytes.Split(in, []byte(";"))
@@ -63,7 +57,7 @@ func findTranslations(in []byte) (out []translation, err error) {
 	for _, split := range splits {
 		trans := split
 
-		if term := termRegex.Find(split); term != nil {
+		if term, _ := findTerm(split); term != nil {
 			// we've found the term in our split, create a new translation struct and add as string
 			out = append(out, translation{string(term), []string{}})
 
@@ -75,6 +69,22 @@ func findTranslations(in []byte) (out []translation, err error) {
 		out[len(out)-1].translations = append(out[len(out)-1].translations, strings.Trim(string(trans), " "))
 	}
 	return
+}
+
+func removeNewlines(in []byte) (out []byte) {
+	out = bytes.Replace(in, []byte("\n"), []byte(""), -1)
+	return
+}
+
+func findTerm(in []byte) (out []byte, err error) {
+	termRegex, err := regexp.Compile(".+\\.")
+	if err != nil {
+		return
+	}
+
+	out = termRegex.Find(in)
+	return
+
 }
 
 func check(e error) {

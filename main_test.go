@@ -73,3 +73,43 @@ func TestFindTranslations(t *testing.T) {
 		}
 	}
 }
+
+var removeNewlinesTests = []struct {
+	in  []byte
+	out []byte
+}{
+	{[]byte("Hello\nWorld"), []byte("HelloWorld")},
+	{[]byte("Hello\n World"), []byte("Hello World")},
+	{[]byte("Hello\n\tWorld"), []byte("Hello	World")},
+}
+
+func TestRemoveNewlines(t *testing.T) {
+	for _, tt := range removeNewlinesTests {
+		rn := removeNewlines(tt.in)
+		if string(rn) != string(tt.out) {
+			t.Errorf("removeNewlines(%q) => %q, want %q", tt.in, rn, tt.out)
+		}
+	}
+}
+
+var findTermTests = []struct {
+	in  []byte
+	out []byte
+}{
+	{[]byte("hello-n.f. this is a translation"), []byte("hello-n.f.")},
+}
+
+func TestFindTerm(t *testing.T) {
+	for _, tt := range findTermTests {
+		term, _ := findTerm(tt.in)
+
+		if t == nil {
+			t.Errorf("findTerm(%q) did not find anything!", tt.in)
+			return
+		}
+
+		if string(term) != string(tt.out) {
+			t.Errorf("removeNewlines(%q) => %q, want %q", tt.in, term, tt.out)
+		}
+	}
+}
