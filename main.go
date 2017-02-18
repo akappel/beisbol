@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"errors"
 	"regexp"
 	"strings"
@@ -30,17 +29,20 @@ func main() {
 	// }
 }
 
-func findRootEntries(in []byte) (out [][]byte, err error) {
+func findRootEntries(in []byte) (out []string, err error) {
 	r, err := regexp.Compile(".+((\\n .+)*|(\\n\\(.+)*)*[^\\n]")
 	if err != nil {
 		return
 	}
 
-	out = r.FindAll(in, -1)
+	// Covert entirety to string
+	str := string(in)
+
+	out = r.FindAllString(str, -1)
 	return
 }
 
-func findEntries(in []byte) (out []entry, err error) {
+func findEntries(in string) (out []entry, err error) {
 	if len(in) < 1 {
 		err = errors.New("Length of input must be greater than 1")
 		return
@@ -49,37 +51,37 @@ func findEntries(in []byte) (out []entry, err error) {
 	in = removeNewlines(in)
 
 	// split on semi-colons
-	splits := bytes.Split(in, []byte(";"))
+	splits := strings.Split(in, ";")
 
 	for _, split := range splits {
 		trans := split
 
-		if term, _ := findTerm(split); term != nil {
+		if term, _ := findTerm(split); term != "" {
 			// we've found the term in our split, create a new translation struct and add as string
 			out = append(out, entry{string(term), []string{}})
 
 			// Remove those term's bytes
-			trans = bytes.Replace(trans, term, []byte(""), -1)
+			trans = strings.Replace(trans, term, "", -1)
 		}
 
 		// add to last generated translation
-		out[len(out)-1].translations = append(out[len(out)-1].translations, strings.Trim(string(trans), " "))
+		out[len(out)-1].translations = append(out[len(out)-1].translations, strings.Trim(trans, " "))
 	}
 	return
 }
 
-func removeNewlines(in []byte) (out []byte) {
-	out = bytes.Replace(in, []byte("\n"), []byte(""), -1)
+func removeNewlines(in string) (out string) {
+	out = strings.Replace(in, "\n", "", -1)
 	return
 }
 
-func findTerm(in []byte) (out []byte, err error) {
+func findTerm(in string) (out string, err error) {
 	termRegex, err := regexp.Compile(".+\\.")
 	if err != nil {
 		return
 	}
 
-	out = termRegex.Find(in)
+	out = termRegex.FindString(in)
 	return
 
 }

@@ -7,36 +7,36 @@ import (
 
 var findRootEntriesTests = []struct {
 	in  []byte
-	out [][]byte
+	out []string
 }{
-	{[]byte("ba-n.f.adj. m li"), [][]byte{[]byte("ba-n.f.adj. m li")}},
-	{[]byte("b b-n.f. b; b;\n mó\nb-n.m."), [][]byte{[]byte("b b-n.f. b; b;\n mó")}},
-	{[]byte("b (o)-n.f. p; b; p\n(p) m. e (s); m. c\n d c (h)"), [][]byte{[]byte("b (o)-n.f. p; b; p\n(p) m. e (s); m. c\n d c (h)")}},
+	{[]byte("ba-n.f.adj. m li"), []string{"ba-n.f.adj. m li"}},
+	{[]byte("b b-n.f. b; b;\n mó\nb-n.m."), []string{"b b-n.f. b; b;\n mó"}},
+	{[]byte("b (o)-n.f. p; b; p\n(p) m. e (s); m. c\n d c (h)"), []string{"b (o)-n.f. p; b; p\n(p) m. e (s); m. c\n d c (h)"}},
 }
 
 var findEntriesTests = []struct {
-	in  []byte
+	in  string
 	out []entry
 }{
-	{[]byte("b-a-n.f.adj. m li"), []entry{entry{"b-a-n.f.adj.", []string{"m li"}}}},
-	{[]byte("ba-n.f.adj. m li; f"), []entry{entry{"ba-n.f.adj.", []string{"m li", "f"}}}},
+	{"b-a-n.f.adj. m li", []entry{entry{"b-a-n.f.adj.", []string{"m li"}}}},
+	{"ba-n.f.adj. m li; f", []entry{entry{"ba-n.f.adj.", []string{"m li", "f"}}}},
 	// {[]byte("ba-n.f.adj. m li; f; f b-n.m. am d s"), [][]byte{[]byte("ba-n.f.adj. m li; f"), []byte("f b-n.m am d s")}},
 }
 
 var removeNewlinesTests = []struct {
-	in  []byte
-	out []byte
+	in  string
+	out string
 }{
-	{[]byte("Hello\nWorld"), []byte("HelloWorld")},
-	{[]byte("Hello\n World"), []byte("Hello World")},
-	{[]byte("Hello\n\tWorld"), []byte("Hello	World")},
+	{"Hello\nWorld", "HelloWorld"},
+	{"Hello\n World", "Hello World"},
+	{"Hello\n\tWorld", "Hello	World"},
 }
 
 var findTermTests = []struct {
-	in  []byte
-	out []byte
+	in  string
+	out string
 }{
-	{[]byte("hello-n.f. this is a translation"), []byte("hello-n.f.")},
+	{"hello-n.f. this is a translation", "hello-n.f."},
 }
 
 func TestFindRootEntries(t *testing.T) {
@@ -55,10 +55,8 @@ func TestFindRootEntries(t *testing.T) {
 		}
 
 		// else, check that what it did find matches what we expect
-		got := string(out[0])
-		expected := string(tt.out[0])
-		if got != expected {
-			t.Errorf("%s(%q) => %q, want %q", name, string(tt.in), got, expected)
+		if out[0] != tt.out[0] {
+			t.Errorf("%s(%q) => %q, want %q", name, tt.in, out[0], tt.out[0])
 		}
 
 	}
@@ -99,7 +97,7 @@ func TestRemoveNewlines(t *testing.T) {
 
 	for _, tt := range removeNewlinesTests {
 		rn := removeNewlines(tt.in)
-		if string(rn) != string(tt.out) {
+		if rn != tt.out {
 			t.Errorf("%s(%q) => %q, want %q", name, tt.in, rn, tt.out)
 		}
 	}
@@ -116,7 +114,7 @@ func TestFindTerm(t *testing.T) {
 			return
 		}
 
-		if string(term) != string(tt.out) {
+		if term != tt.out {
 			t.Errorf("%s(%q) => %q, want %q", name, tt.in, term, tt.out)
 		}
 	}
