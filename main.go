@@ -2,6 +2,8 @@ package main
 
 import (
 	"errors"
+	"fmt"
+	"io/ioutil"
 	"regexp"
 	"strings"
 )
@@ -12,21 +14,21 @@ type entry struct {
 }
 
 func main() {
-	// dat, err := ioutil.ReadFile("dict.txt")
-	// check(err)
-	// groups, err := findTranslationGroups(dat)
-	// check(err)
-	//
-	// for _, group := range groups {
-	// 	translations, err := findTranslations(group)
-	// 	check(err)
-	// 	for _, t := range translations {
-	// 		fmt.Printf("%s\n", t.term)
-	// 		for _, trans := range t.translations {
-	// 			fmt.Printf("\t%s\n", trans)
-	// 		}
-	// 	}
-	// }
+	dat, err := ioutil.ReadFile("dict.txt")
+	check(err)
+	groups, err := findRootEntries(dat)
+	check(err)
+
+	for _, group := range groups {
+		translations, err := findEntries(group)
+		check(err)
+		for _, t := range translations {
+			fmt.Printf("%s\n", t.term)
+			for _, trans := range t.translations {
+				fmt.Printf("\t%s\n", trans)
+			}
+		}
+	}
 }
 
 func findRootEntries(in []byte) (out []string, err error) {
