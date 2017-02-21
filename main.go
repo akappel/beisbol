@@ -57,7 +57,7 @@ func findEntries(in string) (out []entry, err error) {
 
 	for _, part := range entryParts {
 		// Sometimes there will just be a single space as an entry part; we ignore it
-		if part == "" {
+		if len(part) < 1 {
 			break
 		}
 
@@ -65,11 +65,21 @@ func findEntries(in string) (out []entry, err error) {
 		check(err)
 
 		if len(term) > 0 {
+			orig := term
+			// Check if the term is just a different version (masc. -> fem. or vice versa)
+			if (strings.LastIndex(term, "-")) == -1 {
+				temp := term
+				// Get the term from the previous entry
+				prev := out[len(out)-1].term
+				prev = prev[:strings.LastIndex(prev, "-")+1]
+				term = prev + "n." + temp
+			}
+
 			// we've found the term in our part, create a new entry struct and add as string
 			out = append(out, entry{term, []string{}})
 
 			// Remove those term's bytes
-			part = strings.Replace(part, term, "", -1)
+			part = strings.Replace(part, orig, "", -1)
 		}
 
 		// trim any excess whitespace

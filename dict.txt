@@ -113,7 +113,7 @@ base-on-balls-n.f. base por bolas; caminata;
  boleto gratis; pasaporte
 baseball (sport)-n.m. béisbol
 baseball (object)-n.f. pelota; bola; pildora
-(pill) m. esféride (sphere); m. cuero
+ (pill) m. esféride (sphere); m. cuero
  de caballo (horsehide)
 baseball cap-n.f. gorra
 baseball card-n.f. tarjeta de béisbol
