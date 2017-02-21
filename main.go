@@ -16,15 +16,15 @@ type entry struct {
 func main() {
 	dat, err := ioutil.ReadFile("dict.txt")
 	check(err)
-	groups, err := findRootEntries(dat)
+	rootEntries, err := findRootEntries(dat)
 	check(err)
 
-	for _, group := range groups {
-		translations, err := findEntries(group)
+	for _, rootEntry := range rootEntries {
+		entries, err := findEntries(rootEntry)
 		check(err)
-		for _, t := range translations {
-			fmt.Printf("%s\n", t.term)
-			for _, trans := range t.translations {
+		for _, entry := range entries {
+			fmt.Printf("%s\n", entry.term)
+			for _, trans := range entry.translations {
 				fmt.Printf("\t%s\n", trans)
 			}
 		}
@@ -53,21 +53,30 @@ func findEntries(in string) (out []entry, err error) {
 	in = removeNewlines(in)
 
 	// split on semi-colons
-	splits := strings.Split(in, ";")
+	entryParts := strings.Split(in, ";")
 
-	for _, split := range splits {
-		trans := split
-
-		if term, _ := findTerm(split); term != "" {
-			// we've found the term in our split, create a new translation struct and add as string
-			out = append(out, entry{string(term), []string{}})
-
-			// Remove those term's bytes
-			trans = strings.Replace(trans, term, "", -1)
+	for _, part := range entryParts {
+		// Sometimes there will just be a single space as an entry part; we ignore it
+		if part == "" {
+			break
 		}
 
+		term, err := findTerm(part)
+		check(err)
+
+		if len(term) > 0 {
+			// we've found the term in our part, create a new entry struct and add as string
+			out = append(out, entry{term, []string{}})
+
+			// Remove those term's bytes
+			part = strings.Replace(part, term, "", -1)
+		}
+
+		// trim any excess whitespace
+		part = strings.Trim(part, " ")
+
 		// add to last generated translation
-		out[len(out)-1].translations = append(out[len(out)-1].translations, strings.Trim(trans, " "))
+		out[len(out)-1].translations = append(out[len(out)-1].translations, part)
 	}
 	return
 }
@@ -83,7 +92,7 @@ func findTerm(in string) (out string, err error) {
 		return
 	}
 
-	out = termRegex.FindString(in)
+	out = strings.Trim(termRegex.FindString(in), " ")
 	return
 
 }
