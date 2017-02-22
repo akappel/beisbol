@@ -145,13 +145,13 @@ bat-n.m. bate; palo; madero; tolete; f.
  de corcho; fat part of the bat-n.m.
  el corazón del bate; live bats-n.m.
  bates vivos
-bat-v. batear, jitear; palear; to be up at
+bat-v. batear; jitear; palear; to be up at
  bat-v. estar de turno; to break the
  bat-v. romper el bate; to come to
  bat-v. venir al turno
 bat boy-n.f. mascota
 bat in (runs)-v. impulsar; remolcar
-bat rack–n.f. batera
+bat rack-n.f. batera
 batted ball-n.f. bola bateada; m. batazo;
  machucón
 batter-n.m. bateador; in the batter´s
@@ -586,7 +586,7 @@ fielding average/percentage-n.m. promedio
 fifth-adj. quinto
 fifty-adj.n.f. cincuenta
 fight-n.f. pelea; cámara húngara; tángana;
-m. reperpero
+ m. reperpero
 final-adj.n.m. final
 final score-n.m. resultado final
 fine-n.f. multa
@@ -797,7 +797,7 @@ hurler-n.m. lanzador; monticular;
 illegal pitch-n.m. lanzamiento ilegal
 Indians-n.m. Indios
 infield-n.m. cuadro; cuadro interior;
-f. defensa interior; in the infield-phr.
+ f. defensa interior; in the infield-phr.
  al cuadro; to keep the ball in the
  infield-v. mantenerse la pelota en el
  cuadro
@@ -1732,8 +1732,6 @@ wind up-v. alzar el brazo; impulsarse
 winner-n.m. ganador
 winning percentage-n.m. promedio
 winning pitcher/team-n.m. ganador
-winning run-n.f carrera ganadora; carrera
- del triunfo
 winter ball-n.m. béisbol invernal
 won-loss record-n.f. foja; m. registro
 wood-n.f. madera

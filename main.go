@@ -2,8 +2,8 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"io/ioutil"
+	"os"
 	"regexp"
 	"strings"
 )
@@ -14,19 +14,31 @@ type entry struct {
 }
 
 func main() {
-	dat, err := ioutil.ReadFile("dict.txt")
+	dat, err := ioutil.ReadFile("input.txt")
 	check(err)
 	rootEntries, err := findRootEntries(dat)
 	check(err)
+
+	out, err := os.Create("output.txt")
+	defer out.Close()
 
 	for _, rootEntry := range rootEntries {
 		entries, err := findEntries(rootEntry)
 		check(err)
 		for _, entry := range entries {
-			fmt.Printf("%s\n", entry.term)
-			for _, trans := range entry.translations {
-				fmt.Printf("\t%s\n", trans)
+			// Create the final string: "term;trans1, trans2, ..."
+			acc := entry.term + ";"
+
+			for i, trans := range entry.translations {
+				acc += trans
+				if i < len(entry.translations)-1 {
+					acc += ", "
+				} else {
+					acc += "\n"
+				}
 			}
+
+			out.WriteString(acc)
 		}
 	}
 }
